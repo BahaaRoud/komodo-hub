@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Library - Komodo Hub</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Your Library</h1>
+    <nav>
+        <ul>
+            <li><a href="{{url_for('common.home')}}">Home</a></li>
+            <li><a href="{{url_for('student.student_dashboard')}}">Dashboard</a></li>
+            <li><a href="{{url_for('common.logout')}}">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section>
+    <h2>Assignment Submissions</h2>
+    {% if submissions %}
+        <ul>
+            {% for submission in submissions %}
+                <li>
+                    <h3>{{ submission.related_assignment.title }}</h3>
+                    <p><strong>Submitted On:</strong> {{ submission.date_submitted.strftime('%Y-%m-%d %H:%M') }}</p>
+                    <p><strong>Content:</strong> {{ submission.content }}</p>
+                    {% if submission.file_path %}
+                        <p><strong>File:</strong> <a href="/{{ submission.file_path }}" target="_blank">Download File</a></p>
+                    {% endif %}
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No assignment submissions found.</p>
+    {% endif %}
+
+    <h2>Species Sightings</h2>
+    {% if sightings %}
+        <ul>
+            {% for sighting in sightings %}
+                <li>
+                    <p><strong>Description:</strong> {{ sighting.description }}</p>
+                    <p><strong>Location:</strong> {{ sighting.location }}</p>
+                    <p><strong>Reported On:</strong> {{ sighting.date_reported.strftime('%Y-%m-%d %H:%M') }}</p>
+                    {% if sighting.photo %}
+                        <p><strong>Photo:</strong> <a href="/static/uploads/{{ sighting.photo }}" target="_blank">View Photo</a></p>
+                    {% endif %}
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No species sightings found.</p>
+    {% endif %}
+</section>
+
+<footer>
+    <p>© 2024 Komodo Hub. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Komodo Hub</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>About Us</h1>
+        <nav>
+            <ul>
+                <li><a href="{{url_for('common.home')}}">Home</a></li>
+                {% if current_user.is_authenticated %}
+                    <li><a href="{{url_for('common.logout')}}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{url_for('common.login')}}">Login</a></li>
+                    <li><a href="{{url_for('common.register_user')}}">Register as User</a></li>
+                    <li><a href="{{url_for('common.register_organization')}}">Register as Organization</a></li>
+                {% endif %}
+                <li><a href="{{url_for('common.contact')}}">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Who We Are</h2>
+            <p>Komodo Hub is a platform designed to foster collaboration between teachers, students, parents, and the community. Our mission is to create an inclusive space for learning and growth.</p>
+        </section>
+
+        <section>
+            <h2>Our Mission</h2>
+            <p>We aim to empower learners and educators by providing innovative tools, resources, and a supportive community for all stakeholders involved in the education journey.</p>
+        </section>
+
+        <section>
+            <h2>Our Team</h2>
+            <p>Our team consists of dedicated professionals with a passion for education and technology. We work hard to ensure that Komodo Hub remains a dynamic and valuable resource for all users.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Komodo Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - Komodo Hub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Analytics Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('admin.admin_dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('admin.manage_users') }}">Manage Users</a></li>
+                <li><a href="{{ url_for('common.logout') }}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Overview for {{ current_user.organization.name }}</h2>
+            <ul>
+                <li>Total Users: {{ user_count }}</li>
+                <li>Total Classes: {{ class_count }}</li>
+                <li>Total Sightings: {{ sighting_count }}</li>
+                <li>Total Activities: {{ activity_count }}</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Users</h2>
+            {% if users %}
+                <ul>
+                    {% for user in users %}
+                        <li>{{ user.username }} - {{ user.role }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No users found in this organization.</p>
+            {% endif %}
+        </section>
+        <section>
+            <h2>Classes</h2>
+            {% if classes %}
+                <ul>
+                    {% for class_ in classes %}
+                        <li>{{ class_.name }} - Taught by {{ class_.teacher.username }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No classes found in this organization.</p>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

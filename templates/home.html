@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Komodo Hub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Welcome to Komodo Hub</h1>
+            <nav>
+                <ul>
+                    {% if current_user.is_authenticated %}
+                        {% if current_user|has_role('Admin') %}
+                            <li><a href="{{ url_for('admin.admin_dashboard') }}">Admin Dashboard</a></li>
+                            <li><a href="{{ url_for('admin.manage_users') }}">Manage Users</a></li>
+                            <li><a href="{{ url_for('admin.analytics') }}">Analytics</a></li>
+                        {% elif current_user|has_role('Student') %}
+                            <li><a href="{{ url_for('student.student_dashboard') }}">Student Dashboard</a></li>
+                        {% elif current_user|has_role('Teacher') %}
+                            <li><a href="{{ url_for('teacher.teacher_dashboard') }}">Teacher Dashboard</a></li>
+                        {% elif user_role == 'User' %}
+                            <li><a href="{{ url_for('org_user.org_user_dashboard') }}">User Dashboard</a></li>
+                        {% endif %}
+                        <li><a href="{{ url_for('common.logout') }}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('common.login') }}">Login</a></li>
+                        <li><a href="{{ url_for('common.register_user') }}">Register as User</a></li>
+                        <li><a href="{{ url_for('common.register_organization') }}">Register your Organization</a></li>
+                    {% endif %}
+                    <li><a href="{{url_for('common.public_library')}}">Public Library</a></li>
+                    <li><a href="{{ url_for('common.about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('common.contact') }}">Contact</a></li>
+                </ul>
+            </nav>
+            
+        </div>
+    </header>
+
+    <section class="home-section">
+        <h2>About Komodo Hub</h2>
+        <p>
+            Komodo Hub is a collaborative platform for students, teachers, schools, and community members to 
+            contribute to conservation efforts and educational programs around endangered species.
+        </p>
+    </section>
+
+    <!-- Section to show different content and dashboard links for logged-in users -->
+    <section class="user-section">
+        {% if current_user.is_authenticated %}
+            <h2>Welcome back, {{ current_user.username }}!</h2>
+            {% if current_user.role == 'Admin' %}
+                <p>You have administrative access to manage users, view analytics, and more.</p>
+                <a href="{{ url_for('admin.admin_dashboard') }}" class="btn">Go to Admin Dashboard</a>
+            {% elif current_user.role == 'Student' %}
+                <p>Welcome, student! You can access your dashboard for assignments, reports, and more.</p>
+                <a href="{{ url_for('student.student_dashboard') }}" class="btn">Go to Student Dashboard</a>
+            {% elif current_user.role == 'Teacher' %}
+                <p>You are logged in as a Teacher. Access your dashboard to manage student activities.</p>
+                <a href="{{ url_for('teacher.teacher_dashboard') }}" class="btn">Go to Teacher Dashboard</a>
+            {% elif current_user.role == 'User' %}
+                <p>You are logged in as an Org User. Access your dashboard here.</p>
+                <a href="{{ url_for('org_user.org_user_dashboard') }}" class="btn">Go to Your Dashboard</a>
+            {% endif %}
+        {% else %}
+            <h2>Please log in or register to access all features of Komodo Hub.</h2>
+            <a href="{{ url_for('common.register_user') }}" class="btn">Get Started</a>
+        {% endif %}
+    </section>
+
+    <footer>
+        <p>© 2024 Komodo Hub. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

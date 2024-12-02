@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit Assignment</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Submit Assignment: {{ assignment.title }}</h1>
+    </header>
+
+    <form action="{{ url_for('submit_assignment', assignment_id=assignment.id) }}" method="POST" enctype="multipart/form-data">
+        <label for="content">Assignment Content:</label>
+        <textarea name="content" id="content" rows="4" placeholder="Enter your response here"></textarea>
+
+        <label for="file">Upload File (optional):</label>
+        <input type="file" name="file" id="file">
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <footer>
+        <p>© Komodo Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>

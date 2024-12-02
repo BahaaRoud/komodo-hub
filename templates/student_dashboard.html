@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard - Komodo Hub</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Student Dashboard</h1>
+    <nav>
+        <ul>
+            <li><a href="{{url_for('common.home')}}">Home</a></li>
+            <li><a href="{{url_for('student.species_sightings')}}">Report Sighting</a></li>
+            <li><a href="{{url_for('student.student_library')}}">My Library</a></li>
+            <li><a href="{{url_for('student.student_assignments')}}">Assignments</a></li>
+            <li><a href="{{url_for('common.inbox')}}">Message Teacher</a></li>
+            <li><a href="{{url_for('common.logout')}}">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="dashboard">
+    <h2>Welcome, {{ current_user.username }}</h2>
+    <p>View your assignments, conservation activities, and recent updates here.</p>
+
+    <!-- Placeholder for student activities -->
+    <div class="activities">
+        <h3>Your Recent Activities</h3>
+        <p>No recent activities.</p>
+    </div>
+    <h2>Your Enrolled Classes</h2>
+    <ul>
+        {% for class in current_user.enrolled_classes %}
+            <li>{{ class.name }} - {{ class.subject }}</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('student.join_class') }}">Join a Class</a>
+
+</section>
+
+<footer>
+    <p>© 2024 Komodo Hub. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

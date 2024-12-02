@@ -1,0 +1,453 @@
+/* Global styles */
+html, body {
+    height: 100%;  /* Ensure full-height layout */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    flex-grow: 1;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 5px;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+} 
+
+nav ul li a:hover {
+    color:#ccc;
+    text-decoration: underline;
+}
+
+/* Ensure the main content takes up remaining space */
+main {
+    flex: 1;  /* Flex-grow: push the footer to the bottom */
+    padding-bottom: 30px;  /* Add space for footer */
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+    width: 100%;
+    bottom: 0;
+    position: relative;  /* Removed 'fixed' positioning */
+}
+
+body > footer {
+    margin-top: auto;
+}
+
+/* Home page-specific styles */
+.home-section {
+    margin: 30px;
+}
+h1 {
+    color:  white;  /* Ensure it's a visible color */
+    font-size: 2em;
+    margin: 20px 0;
+    text-align: center;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+/* Registration page-specific styles */
+#registerForm {
+    width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+#registerForm label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+#registerForm input, #registerForm select, #registerForm button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#registerForm button {
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+}
+
+#registerForm button:hover {
+    background-color: #555;
+}
+
+#message {
+    color: black;
+    text-align: center;
+}
+
+/* About page-specific styles */
+.about-section {
+    margin: 20px;
+}
+
+.about-section h2 {
+    color: #333;
+}
+
+.about-section p {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+/* Contact page form styles */
+#contactForm {
+    width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+#contactForm label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+#contactForm input, #contactForm textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#contactForm button {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#contactForm button:hover {
+    background-color: #555;
+}
+.login-section {
+    margin: 50px auto;
+    width: 400px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 0;
+    height: auto;
+}
+
+#loginForm label {
+    display: block;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: left;
+}
+
+#loginForm input, #loginForm button{
+    margin-bottom: 10px;
+}
+
+#loginForm button{
+    margin-bottom: 0;
+}
+
+#loginForm input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#loginForm button {
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#loginForm button:hover {
+    background-color: #555;
+}
+
+/* Message styling */
+#message {
+    margin-top: 20px;
+    color: red;
+    font-size: 1em;
+    text-align: center;
+}
+.admin-section {
+    margin: 30px;
+    padding: 20px;
+}
+
+.dashboard-options {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.option {
+    background-color: #f4f4f4;
+    padding: 20px;
+    width: 30%;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.option h3 {
+    color: #333;
+}
+
+.option p {
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #555;
+}
+.manage-users-section {
+    margin: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #333;
+    color: white;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+form {
+    margin-top: 20px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+form input, form select, form button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #555;
+}
+
+#submitSightingButton {
+    padding: 8px 16px;  /* Adjust padding to make the button smaller */
+    font-size: 14px;    /* Adjust font size */
+    width: auto;        /* Prevent the button from taking full width */
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#submitSightingButton:hover {
+    background-color: #555;
+}
+.messages {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background: #f4f4f4;
+    border-radius: 8px;
+}
+
+.message-list {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.message.sent {
+    background-color: #d9fdd3;
+    text-align: right;
+}
+
+.message.received {
+    background-color: #ffffff;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+
+.assignments-page, .submit-assignment-page {
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.assignments-page h1, .submit-assignment-page h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.assignment-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.assignment-list li {
+    margin: 15px 0;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.assignment-list li h3 {
+    font-size: 20px;
+    margin: 0;
+}
+
+.assignment-list li p {
+    margin: 10px 0;
+}
+
+.assignment-list li a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.assignment-list li a:hover {
+    color: #666;
+}
+
+/* Form Styling for Submit Assignment Page */
+.submit-assignment-page form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.submit-assignment-page form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.submit-assignment-page form textarea, 
+.submit-assignment-page form input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+.submit-assignment-page form button {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.submit-assignment-page form button:hover {
+    background-color: #555;
+}

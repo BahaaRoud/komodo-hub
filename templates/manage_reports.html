@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Reports - Komodo Hub</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Manage Species Sighting Reports</h1>
+    <nav>
+        <ul>
+            <li><a href="{{url_for('common.home')}}">Home</a></li>
+            <li><a href="{{url_for('teacher.teacher_dashboard')}}">Dashboard</a></li>
+            <li><a href="{{url_for('common.logout')}}">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section>
+    {% if sightings %}
+        <ul>
+            {% for sighting in sightings %}
+                <div class="sighting-report">
+                <p><strong>Report by {{ sighting.user.username }}</strong></p>
+                <p>Description: {{ sighting.description }}</p>
+                <p>Location: {{ sighting.location }}</p>
+                <p>Date Reported: {{ sighting.date_reported.strftime('%Y-%m-%d %H:%M') }}</p>
+                {% if sighting.photo %}
+                    <p><a href="{{ url_for('static', filename='uploads/' ~ sighting.photo) }}" target="_blank">View Photo</a></p>
+                {% endif %}
+                <p><strong>Feedback:</strong> {{ sighting.feedback or 'No feedback provided yet.' }}</p>
+                <form action="{{ url_for('teacher.manage_reports') }}" method="POST" style="margin-bottom: 1rem;">
+                    <input type="hidden" name="report_id" value="{{ sighting.id }}">
+                    <input type="hidden" name="action" value="feedback">
+                    <textarea name="feedback" rows="2" placeholder="Enter your feedback here...">{{ sighting.feedback }}</textarea>
+                    <button type="submit">Submit Feedback</button>
+                </form>
+                <form action="{{ url_for('common.toggle_sighting_privacy', sighting_id=sighting.id) }}" method="POST">
+                    <button type="submit">{{ 'Make Private' if sighting.is_public else 'Make Public' }}</button>
+                </form>
+                <form action="{{ url_for('teacher.manage_reports') }}" method="POST">
+                    <input type="hidden" name="report_id" value="{{ sighting.id }}">
+                    <input type="hidden" name="action" value="delete">
+                    <button type="submit" style="color: red;">Delete Report</button>
+                </form>
+            </div>
+            <hr>
+        {% endfor %}    
+
+        </ul>
+    {% else %}
+        <p>No sighting reports found.</p>
+    {% endif %}
+</section>
+
+<footer>
+    <p>© 2024 Komodo Hub. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

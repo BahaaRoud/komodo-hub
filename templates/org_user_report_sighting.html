@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Report Species Sighting - Komodo Hub</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Report Species Sighting</h1>
+    <nav>
+        <ul>
+            <li><a href="{{url_for('common.home')}}">Home</a></li>
+            <li><a href="{{url_for('org_user.org_user_dashboard')}}">Dashboard</a></li>
+            <li><a href="{{url_for('org_user.org_user_library')}}">My Library</a></li>
+            <li><a href="{{url_for('common.inbox')}}">Messages</a></li>
+            <li><a href="{{url_for('common.logout')}}">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="report-sighting">
+    <h2>Submit a New Sighting</h2>
+    <form action="{{url_for('org_user.org_user_report_sighting')}}" method="POST" enctype="multipart/form-data">
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea>
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required>
+
+        <label for="photo">Photo:</label>
+        <input type="file" id="photo" name="photo" accept="image/*" required>
+
+        <button type="submit" id="submitSightingButton">Submit Sighting</button>
+    </form>
+</section>
+
+<footer>
+    <p>© 2024 Komodo Hub. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

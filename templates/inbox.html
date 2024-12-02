@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inbox - Komodo Hub</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<header>
+    <h1>Inbox</h1>
+    <nav>
+        <a href="{{ url_for('teacher.teacher_dashboard') if 'Teacher' in current_user.roles else url_for('student.student_dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('common.logout') }}">Logout</a>
+    </nav>
+</header>
+
+<section>
+    <h2>Your Conversations</h2>
+    {% if conversations %}
+        <ul>
+            {% for conversation in conversations %}
+                <li>
+                    <a href="{{ url_for('common.chat', recipient_username=conversation.username) }}">
+                        Chat with {{ conversation.username }}
+                    </a>
+                </li> 
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No conversations found.</p>
+    {% endif %}
+    
+    <h3>Start a New Conversation</h3>
+    <form action="{{ url_for('common.start_conversation') }}" method="POST">
+        <label for="username">Enter username:</label>
+        <input type="text" id="username" name="username" required>
+        <button type="submit">Start Conversation</button>
+    </form>
+</section>
+
+<footer>
+    <p>© 2024 Komodo Hub. All rights reserved.</p>
+</footer>
+</body>
+</html>

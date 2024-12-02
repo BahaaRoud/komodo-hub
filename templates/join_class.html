@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Join Class</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Join a Class</h1>
+    </header>
+
+    <form action="{{ url_for('student.join_class') }}" method="POST">
+        <label for="entry_code">Enter Class Code:</label>
+        <input type="text" id="entry_code" name="entry_code" required>
+        <button type="submit">Join Class</button>
+    </form>
+
+    <footer>
+        <p>© 2024 Komodo Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>

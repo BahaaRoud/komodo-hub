@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organization Access Codes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Access Codes for {{ org_name}} </h1>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <h2><strong>Organization Code:</strong> {{ org_code }}</h2>
+                
+            {% if org_type == 'School' %}
+                <h2>Role-Based Access Codes:-</h2>
+                <ul>
+                    <li><strong>Admin Code:</strong> {{ admin_code }}</li>
+                    <li><strong>Teacher Code:</strong> {{ teacher_code }}</li>
+                    <li><strong>Student Code:</strong> {{ student_code }}</li>
+                </ul>
+                <p>These codes are used to register users with specific roles in the school.</p>
+            {% elif org_type == 'General Org' %}
+                <h2>Role-Based Access Codes</h2>
+                <ul>
+                    <li><strong>Admin Code:</strong> {{ admin_code }}</li>
+                    <li><strong>User Code:</strong> {{ user_code }}</li>
+                </ul>
+                <p>These codes are used to register users with specific roles in the organization.</p>
+            {% else %}
+                <p>No role-specific codes available for this organization type.</p>
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html>

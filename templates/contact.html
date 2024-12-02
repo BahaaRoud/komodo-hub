@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Komodo Hub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Contact Us</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                {% if current_user.is_authenticated %}
+                    <li><a href="{{url_for('common.logout')}}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{url_for('common.login')}}">Login</a></li>
+                    <li><a href="{{url_for('common.register_user')}}">Register as User</a></li>
+                    <li><a href="{{url_for('common.register_organization')}}">Register as Organization</a></li>
+                    {% endif %}
+                <li><a href="{{url_for('common.about')}}">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Get in Touch</h2>
+            <p>If you have any questions or need support, feel free to reach out to us using the contact form below.</p>
+            <h2>Alternatively: </h2>
+            <p>Contact us using the following email address: komodo@hub.com</p>
+        </section>
+
+        <section>
+            <form id="contactForm" action="/submit_contact" method="POST">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Komodo Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>

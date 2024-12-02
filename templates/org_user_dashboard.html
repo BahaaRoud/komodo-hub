@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Dashboard - Komodo Hub</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Welcome, {{ current_user.username }}</h1>
+    <p>You are part of <strong>{{ current_user.organization.name }}</strong></p>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('org_user.create_post') }}">Create Post</a></li>
+            <li><a href="{{ url_for('org_user.org_user_report_sighting') }}">Report Sighting</a></li>
+            <li><a href="{{ url_for('org_user.org_user_library') }}">Your Library</a></li>
+            <li><a href="{{ url_for('common.public_library') }}">Public Library</a></li>
+            <li><a href="{{ url_for('common.logout') }}">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section>
+    <h2>Overview</h2>
+    <p><strong>Total Posts:</strong> {{ user_posts_count }}</p>
+    <p><strong>Total Sightings:</strong> {{ user_sightings_count }}</p>
+</section>
+
+<section>
+    <h2>Quick Actions</h2>
+    <ul>
+        <li><a href="{{ url_for('org_user.create_post') }}">Create a New Post</a></li>
+        <li><a href="{{ url_for('org_user.org_user_report_sighting') }}">Report a New Sighting</a></li>
+        <li><a href="{{ url_for('org_user.org_user_library') }}">View Your Library</a></li>
+    </ul>
+</section>
+
+<footer>
+    <p>© 2024 Komodo Hub. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

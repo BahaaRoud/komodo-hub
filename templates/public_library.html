@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Public Library</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Public Library</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('common.home') }}">Home</a></li>
+                {% if current_user.is_authenticated %}
+                    <li><a href="url_for"></a></li>
+                    <li><a href="{{ url_for('common.logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('common.login') }}">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <section class="filters">
+        <h2>Filter Content</h2>
+        <form method="GET" action="{{ url_for('common.public_library') }}">
+            <label for="org">Organization Type:</label>
+            <select name="org" id="org">
+                <option value="all" {% if org_filter == 'all' %}selected{% endif %}>All</option>
+                <option value="School" {% if org_filter == 'School' %}selected{% endif %}>School</option>
+                <option value="General Org" {% if org_filter == 'General Org' %}selected{% endif %}>General Organization</option>
+                <option value="no_org" {% if org_filter == 'no_org' %}selected{% endif %}>No Organization</option>
+            </select>
+
+            <label for="type">Content Type:</label>
+            <select name="type" id="type">
+                <option value="both" {% if content_filter == 'both' %}selected{% endif %}>All</option>
+                <option value="posts" {% if content_filter == 'posts' %}selected{% endif %}>Posts</option>
+                <option value="sightings" {% if content_filter == 'sightings' %}selected{% endif %}>Sightings</option>
+            </select>
+
+            <button type="submit">Apply Filters</button>
+        </form>
+    </section>
+
+    <section class="content">
+        <h2>Posts</h2>
+        {% if posts %}
+            {% for post in posts %}
+                <div class="post">
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.content }}</p>
+                    {% if post.photo %}
+                        <p><strong>Photo:</strong> <a href="/static/uploads/{{ post.photo }}" target="_blank">View Photo</a></p>
+                    {% endif %}
+                    {% if post.file_path %}
+                        <p><a href="/static/uploads/{{ post.file_path }}" target="_blank">Download File</a></p>
+                    {% endif %}
+                    {% if post.link %}
+                        <p><a href="{{ post.link }}" target="_blank">View Link</a></p>
+                    {% endif %}
+                    <p>Posted by: {{ post.user.username or 'Anonymous' }}</p>
+                    <hr>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No public posts found.</p>
+        {% endif %}
+
+        <h2>Sightings</h2>
+        {% if sightings %}
+            {% for sighting in sightings %}
+                <div class="sighting">
+                    <p>Description: {{ sighting.description }}</p>
+                    <p>Location: {{ sighting.location }}</p>
+                    {% if sighting.photo %}
+                        <p><strong>Photo:</strong> <a href="/static/uploads/{{ sighting.photo }}" target="_blank">View Photo</a></p>
+                    {% endif %}
+                    <p>Reported by: {{ sighting.user.username or 'Anonymous' }}</p>
+                    <hr>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No public sightings found.</p>
+        {% endif %}
+    </section>
+</body>
+</html>

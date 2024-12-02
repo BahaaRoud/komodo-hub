@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Assignments - Komodo Hub</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Your Assignments</h1>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('common.home') }}">Home</a></li>
+            <li><a href="{{ url_for('student.student_dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('student.student_library') }}">My Library</a></li>
+            <li><a href="{{ url_for('common.logout') }}">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section>
+    {% for data in assignments_data %}
+        <h2>Class: {{ data.class.name }} - {{ data.class.subject }}</h2>
+        {% if data.assignments %}
+            <ul>
+                {% for item in data.assignments %}
+                    <li>
+                        <h3>{{ item.assignment.title }}</h3>
+                        <p><strong>Description:</strong> {{ item.assignment.description }}</p>
+                        <p><strong>Due Date:</strong> {{ item.assignment.deadline.strftime('%Y-%m-%d') if item.assignment.deadline else 'No due date' }}</p>
+                        <p><strong>Status:</strong> {% if item.assignment.is_closed %} Closed {% else %} Open for submissions {% endif %}</p>
+                        
+                        {% if item.submitted %}
+                            <!-- Display submitted content and file -->
+                            <p><strong>Your Submission:</strong></p>
+                            <p>{{ item.submission.content or "No content submitted" }}</p>
+                            {% if item.submission.file_path %}
+                                <p>
+                                    <strong>Uploaded File:</strong> 
+                                    <a href="/{{ item.submission.file_path }}" target="_blank">View File</a>
+                                </p>
+                            {% endif %}
+                            <p><strong>Feedback:</strong> {{ item.submission.feedback or 'No feedback provided yet.' }}</p>
+                        {% elif not item.assignment.is_closed %}
+                            <!-- Submission form if assignment is not closed and not yet submitted -->
+                            <form action="{{ url_for('student.submit_assignment', assignment_id=item.assignment.id) }}" method="POST" enctype="multipart/form-data">
+                                <label for="content-{{ item.assignment.id }}">Your Submission:</label>
+                                <textarea id="content-{{ item.assignment.id }}" name="content" rows="3" placeholder="Enter your response here..."></textarea>
+                                
+                                <label for="file-{{ item.assignment.id }}">Upload File:</label>
+                                <input type="file" id="file-{{ item.assignment.id }}" name="file">
+                                
+                                <button type="submit">Submit Assignment</button>
+                            </form>
+                        {% else %}
+                            <p>Submissions are closed for this assignment.</p>
+                        {% endif %}
+                    </li>
+                    <hr>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No assignments for this class.</p>
+        {% endif %}
+    {% endfor %}
+</section>
+
+<footer>
+    <p>© 2024 Komodo Hub. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

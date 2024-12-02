@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat with {{ recipient.username }}</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Chat with {{ recipient.username }}</h1>
+    <a href="{{ url_for('common.inbox') }}">Back to Inbox</a>
+</header>
+
+<section class="chat-history">
+    {% for message in messages %}
+        <div class="{% if message.sender_id == current_user.id %}sent{% else %}received{% endif %}">
+            <p><strong>{{ message.sender.username }}:</strong> {{ message.message_text }}</p>
+            <p class="timestamp">{{ message.timestamp.strftime('%Y-%m-%d %H:%M') }}</p>
+        </div>
+    {% endfor %}
+</section>
+
+<section class="chat-input">
+    <form action="{{ url_for('common.chat', recipient_username=recipient.username) }}" method="POST">
+        <textarea name="message" placeholder="Type your message here..." required></textarea>
+        <button type="submit">Send</button>
+    </form>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Komodo Hub</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Admin Dashboard</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="{{ url_for('admin.manage_users') }}">Manage Users</a></li>
+                    <li><a href="{{ url_for('admin.content_management') }}">Content Management</a></li>
+                    <li><a href="{{ url_for('admin.analytics') }}">View Analytics</a></li>
+                    <li><a href="{{ url_for('common.public_library')}}">Public Library</a></li>
+                    <li><a href="{{ url_for('common.logout') }}">Logout</a></li>
+                    <li><a href="{{url_for('admin.org_access_codes', org_id=current_user.organization_id )}}">Access Codes</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="admin-section">
+        <h2>Welcome, Admin!</h2>
+        <p>From this dashboard, you can manage users, view platform analytics, and curate content.</p>
+
+        <div class="dashboard-options">
+            <div class="option">
+                <h3>Manage Users</h3>
+                <p>View, add, edit, or remove users from the platform.</p>
+                <a href="{{ url_for('admin.manage_users') }}" class="btn">Manage Users</a>
+            </div>
+
+            <div class="option">
+                <h3>View Analytics</h3>
+                <p>View user engagement statistics, species reports, and platform usage data.</p>
+                <a href="{{ url_for('admin.analytics') }}" class="btn">View Analytics</a>
+            </div>
+
+            <div class="option">
+                <h3>Content Management</h3>
+                <p>Manage public-facing content and school/community submissions.</p>
+                <a href="{{ url_for('admin.content_management') }}" class="btn">Content Management</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 Komodo Hub. All rights reserved.</p>
+    </footer>
+</body>
+</html>

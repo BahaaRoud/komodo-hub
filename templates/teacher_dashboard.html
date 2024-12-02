@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher Dashboard - Komodo Hub</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Welcome, {{ current_user.username }} - Teacher Dashboard</h1>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('common.home') }}">Home</a></li>
+            <li><a href="{{ url_for('teacher.classes') }}">Classes</a></li>
+            <li><a href="{{url_for('teacher.create_assignment')}}">Create Assignment</a></li>
+            <li><a href="{{ url_for('teacher.manage_reports') }}">Manage Sightings</a></li>
+            <li><a href="{{ url_for('teacher.manage_assignments') }}">Manage Assignments</a></li>
+            <li><a href="{{url_for('common.public_library')}}">Public Library</a></li>
+            <li><a href="{{ url_for('common.inbox') }}">Inbox</a></li>
+            <li><a href="{{ url_for('common.logout') }}">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section>
+    
+    <h2>Your Classes</h2>
+{% if classes %}
+    <table>
+        <thead>
+            <tr>
+                <th>Class Name</th>
+                <th>Subject</th>
+                <th>Access Code</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for class_ in classes %}
+                <tr>
+                    <td>{{ class_.name }}</td>
+                    <td>{{ class_.subject }}</td>
+                    <td>{{ class_.entry_code }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>You have not created any classes yet. <a href="{{ url_for('teacher.classes') }}">Create a class</a>.</p>
+{% endif %}
+</section>
+
+<footer>
+    <p>© 2024 Komodo Hub. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

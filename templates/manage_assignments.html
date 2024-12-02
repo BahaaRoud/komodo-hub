@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Assignments - Komodo Hub</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Manage Assignments</h1>
+    <nav>
+        <ul>
+            <li><a href="{{url_for('common.home')}}">Home</a></li>
+            <li><a href="{{url_for('teacher.teacher_dashboard')}}">Dashboard</a></li>
+            <li><a href="{{url_for('common.logout')}}">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section>
+    {% for data in classes_data %}
+        <h2>Class: {{ data.class.name }} - {{ data.class.subject }}</h2>
+        {% for item in data.assignments %}
+            <h3>Assignment: {{ item.assignment.title }}</h3>
+            <p><strong>Description:</strong> {{ item.assignment.description }}</p>
+            <p><strong>Due Date:</strong> {{ item.assignment.deadline.strftime('%Y-%m-%d') if item.assignment.deadline else 'No due date' }}</p>
+
+            <!-- Button to toggle assignment status -->
+            <form action="{{ url_for('teacher.toggle_assignment_status', assignment_id=item.assignment.id) }}" method="POST">
+                <button type="submit">
+                    {% if item.assignment.is_closed %} Reopen for Submissions {% else %} Close Submissions {% endif %}
+                </button>
+            </form>
+
+            {% if item.submissions %}
+                <ul>
+                    {% for submission in item.submissions %}
+                        <li>
+                            <p><strong>Student:</strong> {{ submission.student.username }}</p>
+                            <p><strong>Submission Content:</strong> {{ submission.content }}</p>
+                            {% if submission.file_path %}
+                                <p><strong>File:</strong> <a href="/{{ submission.file_path }}" target="_blank">Download File</a></p>
+                            {% endif %}
+                            <p><strong>Date Submitted:</strong> {{ submission.date_submitted.strftime('%Y-%m-%d %H:%M') }}</p>
+                            
+                            <!-- Form to add feedback to a submission -->
+                            <form action="{{ url_for('teacher.add_feedback', submission_id=submission.id) }}" method="POST">
+                                <label for="feedback-{{ submission.id }}">Feedback:</label>
+                                <textarea name="feedback" id="feedback-{{ submission.id }}">{{ submission.feedback }}</textarea>
+                                <button type="submit">Submit Feedback</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No submissions for this assignment yet.</p>
+            {% endif %}
+            <hr>
+        {% endfor %}
+    {% endfor %}
+</section>
+
+<footer>
+    <p>© 2024 Komodo Hub. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Students - {{ class_.name }}</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Manage Students in {{ class_.name }} - {{ class_.subject }}</h1>
+    <nav>
+        <ul>
+            <li><a href="{{url_for('common.home')}}">Home</a></li>
+            <li><a href="{{url_for('teacher.classes')}}">Back to Classes</a></li>
+            <li><a href="{{url_for('common.logout')}}">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section>
+    <h2>Students Enrolled</h2>
+    {% if class_.students %}
+        <ul>
+            {% for student in class_.students %}
+                <li>
+                    {{ student.username }} - {{ student.email }}
+                    
+                    <!-- Form to remove student from class -->
+                    <form action="{{ url_for('teacher.class_students', class_id=class_.id) }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="student_id" value="{{ student.id }}">
+                        <button type="submit" onclick="return confirm('Are you sure you want to remove this student?')">Remove</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No students enrolled in this class.</p>
+    {% endif %}
+</section>
+
+<footer>
+    <p>© 2024 Komodo Hub. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

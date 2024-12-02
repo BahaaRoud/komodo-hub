@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Library</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Library</h1>
+        <nav>
+            <ul>
+                <li><a href="{{url_for('common.home')}}">Home</a></li>
+                <li><a href="{{url_for('org_user.org_user_dashboard')}}">Dashboard</a></li>
+                <li><a href="{{url_for('common.logout')}}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section>
+        <h2>Posts</h2>
+        {% if posts %}
+            {% for post in posts %}
+                <div class="post">
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.content }}</p>
+                    {% if post.photo %}
+                        <p><strong>Photo:</strong> <a href="/static/uploads/{{ post.photo }}" target="_blank">View Photo</a></p>
+                    {% endif %}
+                    {% if post.file_path %}
+                        <p><a href="/static/uploads/{{ post.file_path }}" target="_blank">Download File</a></p>
+                    {% endif %}
+                    {% if post.link %}
+                        <p><a href="{{ post.link }}" target="_blank">Visit Link</a></p>
+                    {% endif %}
+                    <p>Posted by: {{ post.user.username }}</p>
+    
+                    {% if post.user_id == current_user.id or current_user.role == "Admin" %}
+                        <form action="{{ url_for('common.delete_post', post_id=post.id) }}" method="POST">
+                            <button type="submit">Delete</button>
+                        </form>
+                        <form action="{{ url_for('common.toggle_post_privacy', post_id=post.id) }}" method="POST">
+                            <button type="submit">{{ 'Make Private' if post.is_public else 'Make Public' }}</button>
+                        </form>
+                    {% endif %}
+                </div>
+                <hr>
+            {% endfor %}
+        {% else %}
+            <p>No posts to display.</p>
+        {% endif %}
+    </section>
+
+    <section>
+        <!-- Display Sightings -->
+        <h2>Sightings</h2>
+        {% if sightings %}
+            {% for sighting in sightings %}
+                <div class="sighting">
+                    <p>Description: {{ sighting.description }}</p>
+                    <p>Location: {{ sighting.location }}</p>
+                    {% if sighting.photo %}
+                        <p><strong>Photo:</strong> <a href="/static/uploads/{{ sighting.photo }}" target="_blank">View Photo</a></p>
+                    {% endif %}
+                    <p>Reported by: {{ sighting.user.username }}</p>
+
+                    {% if sighting.user_id == current_user.id or current_user.role == "Admin" %}
+                        <form action="{{ url_for('common.delete_sighting', sighting_id=sighting.id) }}" method="POST">
+                            <button type="submit">Delete</button>
+                        </form>
+                        <form action="{{ url_for('common.toggle_sighting_privacy', sighting_id=sighting.id) }}" method="POST">
+                            <button type="submit">{{ 'Make Private' if sighting.is_public else 'Make Public' }}</button>
+                        </form>
+                    {% endif %}
+                </div>
+                <hr>
+            {% endfor %}
+        {% else %}
+            <p>No sightings to display.</p>
+        {% endif %}
+    </section>
+</body>
+</html>

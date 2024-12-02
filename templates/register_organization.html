@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organization Registration - Komodo Hub</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <header>
+    <div class="container">
+        <h1>Register an Organization</h1>
+        <nav>
+            <ul>
+                <li><a href="{{url_for('common.home')}}">Home</a></li>
+                <li><a href="{{url_for('common.login')}}">LogIn</a></li>
+                <li><a href="{{url_for('common.about')}}">About Us</a></li>
+                <li><a href="{{url_for('common.contact')}}">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+        <form id="registerOrganizationForm" method="POST" action="/register_organization">
+            <label for="org_name">Organization Name:</label>
+            <input type="text" id="org_name" name="org_name" required>
+
+            <label for="org_type">Organization Type:</label>
+            <select id="org_type" name="org_type" required>
+                <option value="School">School</option>
+                <option value="General Org">General Organization</option>
+            </select>
+
+            <label for="admin_email">Admin Email:</label>
+            <input type="email" id="admin_email" name="admin_email" required>
+
+            <label for="admin_password">Admin Password:</label>
+            <input type="password" id="admin_password" name="admin_password" required>
+
+            <button type="submit">Register Organization</button>
+        </form>
+
+        <div id="message"></div>
+    </div>
+
+    <script src="static/script.js"></script>  
+</body>
+</html>
